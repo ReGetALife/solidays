@@ -1,4 +1,4 @@
-name: github pages
+name: gh-pages
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -21,7 +21,7 @@ jobs:
     - uses: actions/checkout@v2
 
     # Setup node.js environments
-    - name: setup node
+    - name: Setup Node
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
@@ -46,7 +46,7 @@ jobs:
     - run: yarn generate
     
     # Deploy to gh-pages branch
-    - name: deploy
+    - name: Deploy to gh-pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
