@@ -32,6 +32,8 @@ export default {
   display: flex;
   flex-direction: row;
   margin-bottom: 24px;
+  line-height: 24px;
+  align-items: center;
 }
 
 .item {

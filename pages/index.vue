@@ -56,6 +56,7 @@ export default {}
   width: 300px;
   justify-content: space-between;
   font-size: 24px;
+  align-items: center;
 }
 
 a {
