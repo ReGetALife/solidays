@@ -13,6 +13,9 @@ function generateList () {
       list.push([file.substring(0, file.length - 3), obj.what || ('文章' + file)])
     }
   })
+  if (!fs.existsSync('assets/gen')) {
+    fs.mkdirSync('assets/gen')
+  }
   fs.writeFileSync('assets/gen/list.json', JSON.stringify(list.reverse()))
 }
 
