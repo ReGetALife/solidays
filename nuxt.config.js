@@ -8,7 +8,7 @@ const files = fs.readdirSync(dirPath)
 files.forEach(function (file) {
   const filePath = path.join(dirPath, file)
   if (fs.statSync(filePath).isFile()) {
-    routes.push(file.substring(0, file.length - 3))
+    routes.push('/article/' + file.substring(0, file.length - 3))
   }
 })
 
