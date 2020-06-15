@@ -1,4 +1,16 @@
+import path from 'path'
+import fs from 'fs'
 import generateList from './assets/js/generateList.js'
+
+const routes = []
+const dirPath = path.resolve('static/article')
+const files = fs.readdirSync(dirPath)
+files.forEach(function (file) {
+  const filePath = path.join(dirPath, file)
+  if (fs.statSync(filePath).isFile()) {
+    routes.push(file.substring(0, file.length - 3))
+  }
+})
 
 export default {
   mode: 'spa',
@@ -72,6 +84,6 @@ export default {
     }
   },
   generate: {
-    routes: require('./assets/gen/list.json').map((e) => { return '/article/' + e[0] })
+    routes
   }
 }
