@@ -1,0 +1,48 @@
+<template>
+  <div class="container">
+    <div class="main">
+      <Breadcrumb :items="items" />
+      <div v-for="e in list" :key="e[0]" class="article">
+        <nuxt-link :to="'/article/'+e[0]">
+          {{ e[1] }}
+        </nuxt-link>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import Breadcrumb from '../../components/Breadcrumb'
+import list from '../../assets/gen/list.json'
+export default {
+  components: { Breadcrumb },
+  data () {
+    return {
+      items: [
+        { name: 'Home', link: '/' },
+        { name: '文章', link: '/article' }
+      ],
+      list
+    }
+  }
+}
+</script>
+
+<style scoped>
+.container {
+  height: 100vh;
+  width: 100vw;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.main {
+  width: 800px;
+}
+
+.article {
+  font-size: 20px;
+  line-height: 40px;
+}
+</style>

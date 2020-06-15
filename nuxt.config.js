@@ -1,3 +1,4 @@
+import generateList from './assets/js/generateList.js'
 
 export default {
   mode: 'spa',
@@ -23,12 +24,12 @@ export default {
   ** Global CSS
   */
   css: [
+    '@/assets/css/main.css'
   ],
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-  ],
+  plugins: [],
   /*
   ** Nuxt.js dev-modules
   */
@@ -47,8 +48,7 @@ export default {
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {
-  },
+  axios: {},
   /*
   ** Build configuration
   */
@@ -57,6 +57,18 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
+    }
+  },
+  hooks: {
+    build: {
+      before () {
+        generateList()
+      }
+    },
+    generate: {
+      before () {
+        generateList()
+      }
     }
   }
 }
