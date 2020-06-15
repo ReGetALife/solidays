@@ -1,6 +1,6 @@
 # solidays
 
-> Solidays site
+![gh-pages](https://github.com/ReGetALife/solidays/workflows/gh-pages/badge.svg)
 
 ## Build Setup
 
