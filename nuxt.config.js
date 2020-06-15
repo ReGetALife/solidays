@@ -1,5 +1,4 @@
 import generateList from './assets/js/generateList.js'
-import list from './assets/gen/list.json'
 
 export default {
   mode: 'spa',
@@ -73,6 +72,6 @@ export default {
     }
   },
   generate: {
-    routes: list.map((e) => { return '/article/' + e[0] })
+    routes: require('./assets/gen/list.json').map((e) => { return '/article/' + e[0] })
   }
 }
