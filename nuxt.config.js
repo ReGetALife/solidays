@@ -60,7 +60,7 @@ export default {
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: { browserBaseURL: 'https://solidays.cn' },
+  axios: { browserBaseURL: process.env.NODE_ENV === 'production' ? 'https://solidays.cn' : 'http://localhost:3000' },
   /*
   ** Build configuration
   */

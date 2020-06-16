@@ -33,10 +33,18 @@ export default {
   flex-direction: row;
   margin-bottom: 24px;
   line-height: 24px;
-  align-items: center;
 }
 
 .item {
   margin-right: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .row {
+    font-size: 10px;
+  }
+  .item {
+    margin-right: 4px;
+  }
 }
 </style>

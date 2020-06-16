@@ -45,4 +45,10 @@ export default {
   font-size: 20px;
   line-height: 40px;
 }
+
+@media screen and (max-width: 768px) {
+  .article {
+    font-size: 16px;
+  }
+}
 </style>

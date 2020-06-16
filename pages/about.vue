@@ -48,4 +48,14 @@ h1 {
 a {
   font-size: 24px;
 }
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 16px;
+    line-height: 32px;
+  }
+  a {
+    font-size: 16px;
+  }
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="root">
     <div class="container">
       <h1 class="title">
         solidays
@@ -29,9 +29,15 @@ export default {}
 </script>
 
 <style scoped>
+.root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .container {
   margin: 0 auto;
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -56,7 +62,7 @@ export default {}
   width: 300px;
   justify-content: space-between;
   font-size: 24px;
-  align-items: center;
+  line-height: 32px;
 }
 
 a {
@@ -73,13 +79,21 @@ a:active {
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
   width: 100vw;
   padding: 0 40px;
   display: flex;
   justify-content: space-between;
   font-size: 14px;
   line-height: 40px;
+}
+
+@media screen and (max-width: 768px){
+  .title {
+    font-size: 50px;
+  }
+  .categories {
+    width: 150px;
+    font-size: 16px;
+  }
 }
 </style>
