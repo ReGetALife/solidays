@@ -2,6 +2,12 @@
   <div class="container">
     <div class="main">
       <Breadcrumb :items="items" />
+      <h1>{{ obj.what || '无题' }}</h1>
+      <div class="info">
+        <div>{{ obj.who || '佚名' }}</div>
+        <div>{{ obj.when || '神秘时间' }}</div>
+        <div>{{ obj.where || '神秘地点' }}</div>
+      </div>
       <VueMarkdown :source="obj.content" />
     </div>
   </div>
@@ -47,5 +53,29 @@ export default {
 
 .main {
   width: 800px;
+}
+
+h1 {
+  font-weight: normal;
+  font-size: 24px;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+  line-height: 20px;
+  color: gray;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.info div {
+  margin-right: 16px;
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 20px;
+  }
 }
 </style>
