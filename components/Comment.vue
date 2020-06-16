@@ -1,35 +1,26 @@
 <template>
-  <div id="gitalk-container" />
+  <div class="utterances">
+    <script
+      src="https://utteranc.es/client.js"
+      repo="ReGetALife/solidays-comment"
+      issue-term="pathname"
+      theme="github-light"
+      crossorigin="anonymous"
+      async
+    />
+  </div>
 </template>
 
 <script>
-import 'gitalk/dist/gitalk.css'
-import Gitalk from 'gitalk'
 
 export default {
-  name: 'Comment',
-  props: {
-    id: {
-      type: String,
-      required: true
-    }
-  },
-  mounted () {
-    const gitalk = new Gitalk({
-      clientID: '46af082b43feaa22492c',
-      clientSecret: 'a8ea0ddfa07d0dba5c9e29c914bb83cb1fbe3e3d',
-      repo: 'solidays',
-      owner: 'ReGetALife',
-      admin: ['ReGetALife'],
-      id: this.id, // Ensure uniqueness and length less than 50
-      distractionFreeMode: false // Facebook-like distraction free mode
-    })
-
-    gitalk.render('gitalk-container')
-  }
+  name: 'Comment'
 }
 </script>
 
-<style scoped>
-
+<style>
+.utterances {
+  max-width: 800px;
+  width: 100%;
+}
 </style>

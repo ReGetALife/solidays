@@ -10,7 +10,7 @@
       </div>
       <VueMarkdown :source="obj.content" />
     </div>
-    <Comment :id="id" />
+    <Comment />
   </div>
 </template>
 
@@ -24,8 +24,7 @@ export default {
   components: { Comment, Breadcrumb, VueMarkdown },
   data () {
     return {
-      obj: {},
-      id: this.$nuxt.$route.path
+      obj: {}
     }
   },
   computed: {
@@ -56,6 +55,7 @@ export default {
 }
 
 .main {
+  width: 100%;
   max-width: 800px;
   min-height: 60vh;
 }
