@@ -26,9 +26,16 @@ import conf from '../../solidays.config'
 
 export default {
   components: { Comment, Breadcrumb, VueMarkdown },
+  asyncData ({ $axios, route }) {
+    return $axios.$get(`/article/${route.params.id}.md`).then((res) => {
+      const obj = resolveMd(res)
+      return {
+        obj
+      }
+    })
+  },
   data () {
     return {
-      obj: {},
       mdBaseRepo: conf.mdBaseRepo,
       mdId: this.$nuxt.$route.params.id
     }
@@ -41,11 +48,6 @@ export default {
         { name: this.obj.what, link: this.$nuxt.$route.path }
       ]
     }
-  },
-  beforeCreate () {
-    this.$axios.$get('/article/' + this.$nuxt.$route.params.id + '.md').then((data) => {
-      this.obj = resolveMd(data)
-    })
   }
 }
 </script>
