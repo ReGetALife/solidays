@@ -69,7 +69,8 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
-    }
+    },
+    devtools: true
   },
   hooks: {
     build: {
@@ -84,6 +85,7 @@ export default {
     }
   },
   generate: {
-    routes
+    routes,
+    devtools: true
   }
 }
