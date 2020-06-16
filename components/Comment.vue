@@ -2,7 +2,7 @@
   <div class="utterances">
     <script
       src="https://utteranc.es/client.js"
-      repo="ReGetALife/solidays-comment"
+      :repo="commentBaseRepo"
       issue-term="pathname"
       theme="github-light"
       crossorigin="anonymous"
@@ -12,9 +12,15 @@
 </template>
 
 <script>
+import conf from '../solidays.config'
 
 export default {
-  name: 'Comment'
+  name: 'Comment',
+  data () {
+    return {
+      commentBaseRepo: conf.commentBaseRepo
+    }
+  }
 }
 </script>
 

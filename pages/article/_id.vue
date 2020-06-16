@@ -9,6 +9,9 @@
         <div>{{ obj.where || '神秘地点' }}</div>
       </div>
       <VueMarkdown :source="obj.content" />
+      <a :href="`https://github.com/${mdBaseRepo}/blob/master/static/article/${mdId}.md`" class="view-source">
+        在 GitHub 上查看本页
+      </a>
     </div>
     <Comment />
   </div>
@@ -19,12 +22,15 @@ import VueMarkdown from 'vue-markdown'
 import Breadcrumb from '../../components/Breadcrumb'
 import resolveMd from '../../assets/js/resolveMd'
 import Comment from '../../components/Comment'
+import conf from '../../solidays.config'
 
 export default {
   components: { Comment, Breadcrumb, VueMarkdown },
   data () {
     return {
-      obj: {}
+      obj: {},
+      mdBaseRepo: conf.mdBaseRepo,
+      mdId: this.$nuxt.$route.params.id
     }
   },
   computed: {
@@ -76,6 +82,13 @@ h1 {
 }
 .info div {
   margin-right: 16px;
+}
+
+.view-source {
+  color: gray;
+  margin-top: 24px;
+  float: right;
+  font-size: 14px;
 }
 
 @media screen and (max-width: 768px) {
