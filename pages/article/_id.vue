@@ -10,6 +10,7 @@
       </div>
       <VueMarkdown :source="obj.content" />
     </div>
+    <Comment :id="id" />
   </div>
 </template>
 
@@ -17,12 +18,14 @@
 import VueMarkdown from 'vue-markdown'
 import Breadcrumb from '../../components/Breadcrumb'
 import resolveMd from '../../assets/js/resolveMd'
+import Comment from '../../components/Comment'
 
 export default {
-  components: { Breadcrumb, VueMarkdown },
+  components: { Comment, Breadcrumb, VueMarkdown },
   data () {
     return {
-      obj: {}
+      obj: {},
+      id: this.$nuxt.$route.path
     }
   },
   computed: {
@@ -44,15 +47,17 @@ export default {
 
 <style scoped>
 .container {
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   padding: 40px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .main {
-  width: 800px;
+  max-width: 800px;
+  min-height: 60vh;
 }
 
 h1 {
