@@ -41,12 +41,12 @@ export default {
 
 h1 {
   font-weight: normal;
-  font-size: 24px;
-  line-height: 48px;
+  font-size: 20px;
+  line-height: 40px;
 }
 
 a {
-  font-size: 24px;
+  font-size: 20px;
 }
 
 @media screen and (max-width: 768px) {
