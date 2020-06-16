@@ -9,7 +9,7 @@
           文章
         </nuxt-link>
         <nuxt-link to="/about">
-          About
+          关于
         </nuxt-link>
         <a href="https://www.solidays.tk">
           旧站
@@ -18,7 +18,7 @@
     </div>
     <div class="footer">
       <a href="https://世界1流大学.com">世界1流大学.com</a>
-      <a href="https://github.com/ReGetALife/solidays">Source</a>
+      <a href="https://github.com/ReGetALife/solidays">源码仓库</a>
     </div>
   </div>
 </template>

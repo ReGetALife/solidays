@@ -36,7 +36,7 @@ export default {
   computed: {
     items () {
       return [
-        { name: 'Home', link: '/' },
+        { name: '主页', link: '/' },
         { name: '文章', link: '/article' },
         { name: this.obj.what, link: this.$nuxt.$route.path }
       ]

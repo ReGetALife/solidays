@@ -19,7 +19,7 @@ export default {
   data () {
     return {
       items: [
-        { name: 'Home', link: '/' },
+        { name: '主页', link: '/' },
         { name: '文章', link: '/article' }
       ],
       list

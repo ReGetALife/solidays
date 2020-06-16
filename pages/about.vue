@@ -18,8 +18,8 @@ export default {
   data () {
     return {
       items: [
-        { name: 'Home', link: '/' },
-        { name: 'About', link: '/about' }
+        { name: '主页', link: '/' },
+        { name: '关于', link: '/about' }
       ]
     }
   }
