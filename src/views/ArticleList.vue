@@ -2,25 +2,27 @@
   <div class="container">
     <div class="main">
       <Breadcrumb :items="items" />
-      <h1>李庆国</h1>
-      <h1>同济大学 软件学院 软件工程专业</h1>
-      <h1>GitHub: <a href="https://github.com/ReGetALife">ReGetALife</a></h1>
+      <div v-for="e in list" :key="e[0]" class="article">
+        <router-link :to="'/article/'+e[0]">
+          {{ e[1] }}
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-
 import Breadcrumb from '../components/Breadcrumb'
-
+import list from '../assets/gen/list.json'
 export default {
   components: { Breadcrumb },
   data () {
     return {
       items: [
         { name: '主页', link: '/' },
-        { name: '关于', link: '/about' }
-      ]
+        { name: '文章', link: '/article' }
+      ],
+      list
     }
   }
 }
@@ -39,22 +41,13 @@ export default {
   width: 800px;
 }
 
-h1 {
-  font-weight: normal;
+.article {
   font-size: 20px;
   line-height: 40px;
 }
 
-a {
-  font-size: 20px;
-}
-
 @media screen and (max-width: 768px) {
-  h1 {
-    font-size: 16px;
-    line-height: 32px;
-  }
-  a {
+  .article {
     font-size: 16px;
   }
 }

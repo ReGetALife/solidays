@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 473 473" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-1239.31,-1945.6)">
+        <g transform="matrix(1.03297,0,0,1.45128,907.514,-1096.66)">
+            <ellipse cx="549.887" cy="2259.03" rx="228.681" ry="162.767" style="fill:none;"/>
+        </g>
+        <g transform="matrix(1.12559,0,0,1.15021,248.494,-413.345)">
+            <text x="915.776px" y="2238.58px" style="font-family:'MicrosoftJhengHeiUIRegular', 'Microsoft JhengHei UI', sans-serif;font-size:150px;stroke:black;stroke-width:2.03px;">solid</text>
+            <text x="915.776px" y="2388.58px" style="font-family:'MicrosoftJhengHeiUIRegular', 'Microsoft JhengHei UI', sans-serif;font-size:150px;stroke:black;stroke-width:2.03px;">days</text>
+        </g>
+    </g>
+</svg>
