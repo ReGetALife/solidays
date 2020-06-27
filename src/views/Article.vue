@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="obj">
     <div class="main">
       <Breadcrumb :items="items" />
       <h1>{{ obj.what || '无题' }}</h1>
@@ -27,14 +27,13 @@ import conf from '../../solidays.config'
 
 export default {
   components: { Comment, Breadcrumb, VueMarkdown },
-  created() {
-    Axios.get(`/article/${this.$route.params.id}.md`).then((res) => {
-      this.obj = resolveMd(res.data)
-    })
+  async beforeCreate() {
+    const res = await Axios.get(`/article/${this.$route.params.id}.md`)
+    this.obj = resolveMd(res.data)
   },
   data() {
     return {
-      obj: {},
+      obj: undefined,
       mdBaseRepo: conf.mdBaseRepo,
       mdId: this.$route.params.id
     }
