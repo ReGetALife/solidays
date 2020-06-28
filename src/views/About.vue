@@ -2,9 +2,9 @@
   <div class="container">
     <div class="main">
       <Breadcrumb :items="items" />
-      <h1>李庆国</h1>
-      <h1>同济大学 软件学院 软件工程专业</h1>
-      <h1>GitHub: <a href="https://github.com/ReGetALife">ReGetALife</a></h1>
+      <h1>嗨，我是李庆国</h1>
+      <p>毕业于同济大学软件学院软件工程专业</p>
+      <p>GitHub: <a href="https://github.com/ReGetALife">ReGetALife</a></p>
     </div>
   </div>
 </template>
@@ -41,10 +41,6 @@ h1 {
   font-weight: normal;
   font-size: 20px;
   line-height: 40px;
-}
-
-a {
-  font-size: 20px;
 }
 
 @media screen and (max-width: 768px) {
