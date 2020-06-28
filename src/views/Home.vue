@@ -8,12 +8,12 @@
         <router-link to="/article">
           文章
         </router-link>
-        <router-link to="/about">
-          关于
-        </router-link>
         <a href="https://www.solidays.tk">
           旧站
         </a>
+        <router-link to="/about">
+          关于
+        </router-link>
       </div>
     </div>
     <div class="footer">
