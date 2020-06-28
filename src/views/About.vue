@@ -29,14 +29,13 @@ export default {
 <style scoped>
 .container {
   min-height: 100vh;
-  width: 100vw;
   padding: 40px;
   display: flex;
   justify-content: center;
 }
 
 .main {
-  width: 800px;
+  width: 900px;
 }
 
 h1 {

@@ -8,7 +8,7 @@
         <div>{{ obj.when || '神秘时间' }}</div>
         <div>{{ obj.where || '神秘地点' }}</div>
       </div>
-      <VueMarkdown :source="obj.content" />
+      <VueMarkdown :source="obj.content" class="markdown-body"/>
       <a :href="`https://github.com/${mdBaseRepo}/blob/master/public/article/${mdId}.md`" class="view-source">
         在 GitHub 上查看本页
       </a>
@@ -19,6 +19,7 @@
 
 <script>
 import VueMarkdown from 'vue-markdown'
+import 'github-markdown-css'
 import Axios from 'axios'
 import Breadcrumb from '../components/Breadcrumb'
 import resolveMd from '../assets/js/resolveMd'
@@ -53,7 +54,6 @@ export default {
 <style scoped>
 .container {
   min-height: 100vh;
-  width: 100vw;
   padding: 40px;
   display: flex;
   flex-direction: column;
@@ -62,7 +62,7 @@ export default {
 
 .main {
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
   min-height: 60vh;
 }
 

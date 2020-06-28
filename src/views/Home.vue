@@ -79,7 +79,6 @@ a:active {
 }
 
 .footer {
-  width: 100vw;
   padding: 0 40px;
   display: flex;
   justify-content: space-between;

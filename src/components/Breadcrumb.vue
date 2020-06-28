@@ -31,6 +31,7 @@ export default {
 .row {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   margin-bottom: 24px;
   line-height: 24px;
 }
