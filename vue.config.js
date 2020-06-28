@@ -24,7 +24,7 @@ module.exports = {
           // prerender routes
           routes,
           renderer: new Renderer({
-            // render util ready
+            // render until page ready
             renderAfterDocumentEvent: 'page-is-ready',
             headless: true
           })
