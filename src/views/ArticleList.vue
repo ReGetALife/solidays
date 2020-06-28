@@ -16,6 +16,9 @@ import Breadcrumb from '../components/Breadcrumb'
 import list from '../assets/gen/list.json'
 export default {
   components: { Breadcrumb },
+  mounted() {
+    document.dispatchEvent(new Event('page-is-ready'))
+  },
   data () {
     return {
       items: [

@@ -28,9 +28,10 @@ import conf from '../../solidays.config'
 
 export default {
   components: { Comment, Breadcrumb, VueMarkdown },
-  async beforeCreate() {
+  async created() {
     const res = await Axios.get(`/article/${this.$route.params.id}.md`)
     this.obj = resolveMd(res.data)
+    document.dispatchEvent(new Event('page-is-ready'))
   },
   data() {
     return {

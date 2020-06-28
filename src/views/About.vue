@@ -15,6 +15,9 @@ import Breadcrumb from '../components/Breadcrumb'
 
 export default {
   components: { Breadcrumb },
+  mounted() {
+    document.dispatchEvent(new Event('page-is-ready'))
+  },
   data () {
     return {
       items: [

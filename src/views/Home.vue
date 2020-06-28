@@ -25,7 +25,11 @@
 
 <script>
 
-export default {}
+export default {
+  mounted() {
+    document.dispatchEvent(new Event('page-is-ready'))
+  }
+}
 </script>
 
 <style scoped>
