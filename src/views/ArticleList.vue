@@ -30,7 +30,6 @@ export default {
 
 <style scoped>
 .container {
-  min-height: 100vh;
   padding: 40px;
   display: flex;
   justify-content: center;

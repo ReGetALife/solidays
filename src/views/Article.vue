@@ -53,7 +53,6 @@ export default {
 
 <style scoped>
 .container {
-  min-height: 100vh;
   padding: 40px;
   display: flex;
   flex-direction: column;
@@ -63,7 +62,6 @@ export default {
 .main {
   width: 100%;
   max-width: 900px;
-  min-height: 60vh;
 }
 
 h1 {
