@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="en"><head><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>solidays</title><link href="/css/about.ae0ff3f2.css" rel="prefetch"><link href="/css/chunk-36c9fefa.260c49a7.css" rel="prefetch"><link href="/css/chunk-c068e486.339bd1cc.css" rel="prefetch"><link href="/js/about.854434bc.js" rel="prefetch"><link href="/js/chunk-36c9fefa.8302d4d3.js" rel="prefetch"><link href="/js/chunk-c068e486.65ae6591.js" rel="prefetch"><link href="/css/app.ccb1013e.css" rel="preload" as="style"><link href="/js/app.fb5601cd.js" rel="preload" as="script"><link href="/js/chunk-vendors.3dec5244.js" rel="preload" as="script"><link href="/css/app.ccb1013e.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="/css/chunk-36c9fefa.260c49a7.css"><script charset="utf-8" src="/js/chunk-36c9fefa.8302d4d3.js"></script></head><body><noscript><strong>We're sorry but solidays doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"><div data-v-17485b02="" class="container"><div data-v-17485b02="" class="main"><div data-v-61e5e8e8="" data-v-17485b02="" class="row"><div data-v-61e5e8e8=""><div data-v-61e5e8e8="" class="item"><a data-v-61e5e8e8="" href="/" class="item router-link-active"> 主页 </a>/ </div></div><div data-v-61e5e8e8=""><div data-v-61e5e8e8="" class="item"><a data-v-61e5e8e8="" href="/article" class="item router-link-active"> 文章 </a>/ </div></div><div data-v-61e5e8e8=""><div data-v-61e5e8e8=""> 关于 nuxt generate 和 prerender-spa-plugin 的比较 </div></div></div><h1 data-v-17485b02="">关于 nuxt generate 和 prerender-spa-plugin 的比较</h1><div data-v-17485b02="" class="info"><div data-v-17485b02="">李</div><div data-v-17485b02="">2020-06-28</div><div data-v-17485b02="">上海</div></div><div data-v-17485b02="" class="markdown-body"><blockquote>
+<p>TL; DR</p>
+</blockquote>
+<blockquote>
+<p>我放弃了 nuxt generate 转而使用 prerender-spa-plugin，因为后者才是真正的预渲染。</p>
+</blockquote>
+<p>想要单页应用的体验，又想要搜索引擎友好，还想省点计算资源，那就搞个预渲染⑧。</p>
+<p>传闻基于 <a href="https://cn.vuejs.org/v2/guide/">vue.js</a> 的 <a href="https://zh.nuxtjs.org/guide/">nuxt.js</a> 无论是做服务端渲染还是预渲染都特别方便，所以我有点感兴趣——一句 <code>nuxt generate</code> 就能完成预渲染，懒人必备。</p>
+<p>以本网站的 <a href="https://github.com/ReGetALife/solidays">repository</a> 为例子，我们康康 nuxt 预渲染的效果。</p>
+<p>首先是渲染后的 <code>dist</code> 目录的结构，大概是这样：</p>
+<pre><code>│  index.html
+│
+├─about
+│      index.html
+│
+├─article
+│  │  index.html
+│  │
+│  ├─0
+│  │      index.html
+│  │
+│  └─1
+│          index.html
+</code></pre>
+<p>看着还行，然后打开网站首页对应的 html 文件（省略了 style 标签），出大问题：</p>
+<pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+  &lt;title&gt;solidays&lt;/title&gt;
+  &lt;meta data-n-head="1" charset="utf-8"&gt;
+  &lt;meta data-n-head="1" name="viewport" content="width=device-width,initial-scale=1"&gt;
+  &lt;meta data-n-head="1" data-hid="description" name="description" content="Solidays site"&gt;
+  &lt;link data-n-head="1" rel="icon" type="image/x-icon" href="/favicon.ico"&gt;
+  &lt;link rel="preload" href="/_nuxt/87c5ca9e89ccc22c5ca6.js" as="script"&gt;
+  &lt;link rel="preload" href="/_nuxt/617d5b8dda09eb86232c.js" as="script"&gt;
+  &lt;link rel="preload" href="/_nuxt/b67b01560b96c9cde957.js" as="script"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div id="__nuxt"&gt;
+    &lt;script&gt;window.addEventListener("error", function () { var e = document.getElementById("nuxt-loading"); e &amp;&amp; (e.className += " error") })&lt;/script&gt;
+    &lt;div id="nuxt-loading" aria-live="polite" role="status"&gt;
+      &lt;div&gt;Loading...&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;script type="text/javascript" src="/_nuxt/87c5ca9e89ccc22c5ca6.js"&gt;&lt;/script&gt;
+  &lt;script type="text/javascript" src="/_nuxt/617d5b8dda09eb86232c.js"&gt;&lt;/script&gt;
+  &lt;script type="text/javascript" src="/_nuxt/b67b01560b96c9cde957.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+<p>所以说预渲染就渲染出了个 <code>Loading...</code> 而已，首页里并没有涉及到异步数据，却啥也没渲染出来，实在很一般。</p>
+<p>结论就是 <code>nuxt generate</code> 是可以生成一个静态站点的，生成的站点不需要像传统的单页应用一样配置 fallback 的页面（因为它已经把所有路由情况都用相应的目录表示出来了），所以对托管的服务器没啥要求。但我觉得这个预渲染的程度也太低了（相应的，也许速度会很快），当然，也可能是我食用方法不对。</p>
+<p>另一个可用于 vue.js 预渲染的技术是 <a href="https://github.com/chrisvfritz/prerender-spa-plugin">prerender-spa-plugin</a>，作者是 vue 核心团队的成员。</p>
+<p>prerender-spa-plugin 预渲染出来目录结构跟 nuxt 的是一样的：</p>
+<pre><code>│  index.html
+│
+├─about
+│      index.html
+│
+├─article
+│  │  index.html
+│  │
+│  ├─0
+│  │      index.html
+│  │
+│  └─1
+│          index.html
+</code></pre>
+<p>但是打开首页对应的 html 文件，正常多了，页面上的元素都被预渲染了出来。</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+    &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+    &lt;link rel="icon" href="/favicon.ico"&gt;
+    &lt;title&gt;solidays&lt;/title&gt;
+    &lt;link href="/css/about.0f584ee5.css" rel="prefetch"&gt;
+    &lt;link href="/css/chunk-28e366f6.b9ab4f5a.css" rel="prefetch"&gt;
+    &lt;link href="/css/chunk-6941575a.2572d488.css" rel="prefetch"&gt;
+    &lt;link href="/js/about.6337d6a7.js" rel="prefetch"&gt;
+    &lt;link href="/js/chunk-28e366f6.773b388b.js" rel="prefetch"&gt;
+    &lt;link href="/js/chunk-6941575a.441841bb.js" rel="prefetch"&gt;
+    &lt;link href="/css/app.9449ebb6.css" rel="preload" as="style"&gt;
+    &lt;link href="/js/app.7fed66b8.js" rel="preload" as="script"&gt;
+    &lt;link href="/js/chunk-vendors.3dec5244.js" rel="preload" as="script"&gt;
+    &lt;link href="/css/app.9449ebb6.css" rel="stylesheet"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;&lt;noscript&gt;&lt;strong&gt;We're sorry but solidays doesn't work properly without JavaScript enabled. Please enable it to
+            continue.&lt;/strong&gt;&lt;/noscript&gt;
+    &lt;div id="app"&gt;
+        &lt;div data-v-18813c80="" class="root"&gt;
+            &lt;div data-v-18813c80="" class="container"&gt;
+                &lt;h1 data-v-18813c80="" class="title"&gt; solidays &lt;/h1&gt;
+                &lt;div data-v-18813c80="" class="categories"&gt;&lt;a data-v-18813c80="" href="/article" class=""&gt; 文章 &lt;/a&gt;&lt;a
+                        data-v-18813c80="" href="/about" class=""&gt; 关于 &lt;/a&gt;&lt;a data-v-18813c80=""
+                        href="https://www.solidays.tk"&gt; 旧站 &lt;/a&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div data-v-18813c80="" class="footer"&gt;&lt;a data-v-18813c80="" href="https://世界1流大学.com"&gt;世界1流大学.com&lt;/a&gt;&lt;a
+                    data-v-18813c80="" href="https://github.com/ReGetALife/solidays"&gt;源码仓库&lt;/a&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script src="/js/chunk-vendors.3dec5244.js"&gt;&lt;/script&gt;
+    &lt;script src="/js/app.7fed66b8.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+<p>但是打开某篇文章对应的 html 文件，发现元素并没有被渲染出来，因为文章都是异步请求获取的，文章还没拿到已经完成了渲染，自然不会有内容。所以只需设置适当的延时即可：</p>
+<pre><code class="language-javascript">new PrerenderSpaPlugin({
+          staticDir: path.join(__dirname, 'dist'),
+          // prerender routes
+          routes,
+          renderer: new Renderer({
+            // time to fetch md file
+            renderAfterTime: 500,
+            headless: true
+          })
+        })
+</code></pre>
+<p>于是，所有页面的所有元素都被渲染了出来，很棒棒。</p>
+<p>prerender-spa-plugin 提供了两个渲染器：puppeteer 和 jsdom ，前者是一个无头 chrome 浏览器，比较可靠但耗内存，后者很快但不可靠。所以使用 puppeteer 时，就像打开了心爱的 chrome 渲染完了页面再保存下来，这才叫预渲染啊。</p>
+<p>Metadata 和 SEO 啥的暂时放下，最近挺忙的 : )</p>
+</div><a data-v-17485b02="" href="https://github.com/ReGetALife/solidays/blob/master/public/article/2.md" class="view-source"> 在 GitHub 上查看本页 </a></div><div data-v-17485b02="" class="utterances"><div class="utterances" style="height: 268px;">
+    <iframe class="utterances-frame" title="Comments" scrolling="no" src="https://utteranc.es/utterances.html?type=application%2Fjavascript&amp;src=https%3A%2F%2Futteranc.es%2Fclient.js&amp;repo=ReGetALife%2Fsolidays-comment&amp;issue-term=pathname&amp;theme=github-light&amp;crossorigin=anonymous&amp;async=async&amp;url=http%3A%2F%2Flocalhost%3A8000%2Farticle%2F2&amp;origin=http%3A%2F%2Flocalhost%3A8000&amp;pathname=article%2F2&amp;title=solidays"></iframe>
+  </div></div></div></div><script src="/js/chunk-vendors.3dec5244.js"></script><script src="/js/app.fb5601cd.js"></script></body></html>
