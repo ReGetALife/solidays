@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "npm run before-build && vue-cli-service serve",
-    "build": "npm run before-build && vue-cli-service build",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && npm run before-build && vue-cli-service build",
     "lint": "vue-cli-service lint",
     "before-build": "node beforeBuild.js"
   },
