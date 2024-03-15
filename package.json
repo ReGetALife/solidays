@@ -9,7 +9,7 @@
     "before-build": "node beforeBuild.js"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.28.0",
     "babel-runtime": "^6.26.0",
     "core-js": "^3.6.5",
     "github-markdown-css": "^4.0.0",
