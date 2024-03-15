@@ -8,16 +8,12 @@
         <router-link to="/article">
           文章
         </router-link>
-        <a href="https://www.solidays.tk">
-          旧站
-        </a>
         <router-link to="/about">
           关于
         </router-link>
       </div>
     </div>
     <div class="footer">
-      <a href="https://世界1流大学.com">世界1流大学.com</a>
       <a href="https://github.com/ReGetALife/solidays">源码仓库</a>
     </div>
   </div>
