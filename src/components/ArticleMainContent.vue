@@ -1,5 +1,5 @@
 <template>
-  <div class="main" id="rendered">
+  <div class="main" id="article">
     <Breadcrumb :items="items" />
     <h1>{{ obj.what || '无题' }}</h1>
     <div class="info">
