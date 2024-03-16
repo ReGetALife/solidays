@@ -6,11 +6,8 @@ function resolveMd (raw) {
       const heads = strings[1].split('\n')
       for (const kv of heads) {
         if (kv.indexOf(':') > 0) {
-          const kvArr = kv.split(':', 2)
-          if (kvArr.length === 2) {
-            const k = kvArr[0].trim()
-            res[k] = kvArr[1].trim()
-          }
+          const k = kv.slice(0, kv.indexOf(':')).trim()
+          res[k] = kv.slice(kv.indexOf(':') + 1).trim()
         }
       }
       res.content = strings[2]
