@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="zh"><head><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>solidays</title><link href="/css/about.3eaa9a42.css" rel="prefetch"><link href="/css/chunk-2ae2f691.bf65547e.css" rel="prefetch"><link href="/css/chunk-425246c2.7e53ec29.css" rel="prefetch"><link href="/js/about.2b351796.js" rel="prefetch"><link href="/js/chunk-2ae2f691.6989063e.js" rel="prefetch"><link href="/js/chunk-425246c2.e5f65854.js" rel="prefetch"><link href="/css/app.f5894e10.css" rel="preload" as="style"><link href="/js/app.dced548f.js" rel="preload" as="script"><link href="/js/chunk-vendors.91ff9c0b.js" rel="preload" as="script"><link href="/css/app.f5894e10.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="/css/chunk-2ae2f691.bf65547e.css"><script charset="utf-8" src="/js/chunk-2ae2f691.6989063e.js"></script></head><body><noscript><strong>We're sorry but solidays doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app" data-server-rendered="true"><div data-v-3f9ea82b="" class="container"><div data-v-71b06603="" id="article" class="main"><div data-v-61e5e8e8="" data-v-71b06603="" class="row"><div data-v-61e5e8e8=""><div data-v-61e5e8e8="" class="item"><a data-v-61e5e8e8="" href="/" class="item router-link-active"> 主页 </a>/ </div></div><div data-v-61e5e8e8=""><div data-v-61e5e8e8="" class="item"><a data-v-61e5e8e8="" href="/article" class="item router-link-active"> 文章 </a>/ </div></div><div data-v-61e5e8e8=""><div data-v-61e5e8e8=""> 在 Windows git bash 中运行交互式的 python 或 node.js 应用 </div></div></div><h1 data-v-71b06603="">在 Windows git bash 中运行交互式的 python 或 node.js 应用</h1><div data-v-71b06603="" class="info"><div data-v-71b06603="">李</div><div data-v-71b06603="">2019-06-12 12:46:27</div><div data-v-71b06603="">上海</div></div><div data-v-71b06603="" class="markdown-body"><p>今天在使用 gitmoji 时发现，使用方向键来切换选项是无效的，并且还有许多显示上的问题。</p>
+<!-- more -->
+<p>其实，在一开始安装 git 的时候，有一个步骤是选择使用 MinTTY 终端还是 Windows 原生的终端（也就是 cmd )。而我恰好选择了 MinTTY 。</p>
+<p>然而，MinTTY 不支持交互操作 😃</p>
+<p>解决方法：可以通过 winpty 提供的接口来实现交互操作。</p>
+<p>例如：</p>
+<pre><code class="language-bash">$ winpty python
+$ winpty npm.cmd install
+$ winpty gitmoji.cmd -c
+</code></pre>
+<p>参考：<br>
+<a href="https://www.zhihu.com/question/36142943">https://www.zhihu.com/question/36142943</a><br>
+<a href="https://stackoverflow.com/questions/54588898/how-to-run-npm-scripts-with-winpty">https://stackoverflow.com/questions/54588898/how-to-run-npm-scripts-with-winpty</a></p>
+<p>后续：</p>
+<p>Windows 终端对 emoji 的支持是有问题的，大多数 emoji 都无法正确显示 orz<br>
+建议把 Windows 升级到 1903 版本，安装全新的 Windows Terminal ，美滋滋。</p>
+</div><a data-v-71b06603="" href="https://github.com/ReGetALife/solidays/blob/master/public/article/9.md" class="view-source"> 在 GitHub 上查看本页 </a></div><div data-v-3f9ea82b="" class="utterances"><div class="utterances">
+    <iframe class="utterances-frame" title="Comments" scrolling="no" src="https://utteranc.es/utterances.html?type=application%2Fjavascript&amp;src=https%3A%2F%2Futteranc.es%2Fclient.js&amp;repo=ReGetALife%2Fsolidays-comment&amp;issue-term=pathname&amp;theme=github-light&amp;crossorigin=anonymous&amp;async=async&amp;url=http%3A%2F%2Flocalhost%3A8000%2Farticle%2F9&amp;origin=http%3A%2F%2Flocalhost%3A8000&amp;pathname=article%2F9&amp;title=solidays&amp;description=&amp;og%3Atitle=&amp;session=" loading="lazy"></iframe>
+  </div></div></div></div><script src="/js/chunk-vendors.91ff9c0b.js"></script><script src="/js/app.dced548f.js"></script></body></html>

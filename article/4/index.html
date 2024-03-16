@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="zh"><head><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>solidays</title><link href="/css/about.3eaa9a42.css" rel="prefetch"><link href="/css/chunk-2ae2f691.bf65547e.css" rel="prefetch"><link href="/css/chunk-425246c2.7e53ec29.css" rel="prefetch"><link href="/js/about.2b351796.js" rel="prefetch"><link href="/js/chunk-2ae2f691.6989063e.js" rel="prefetch"><link href="/js/chunk-425246c2.e5f65854.js" rel="prefetch"><link href="/css/app.f5894e10.css" rel="preload" as="style"><link href="/js/app.dced548f.js" rel="preload" as="script"><link href="/js/chunk-vendors.91ff9c0b.js" rel="preload" as="script"><link href="/css/app.f5894e10.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="/css/chunk-2ae2f691.bf65547e.css"><script charset="utf-8" src="/js/chunk-2ae2f691.6989063e.js"></script></head><body><noscript><strong>We're sorry but solidays doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app" data-server-rendered="true"><div data-v-3f9ea82b="" class="container"><div data-v-71b06603="" id="article" class="main"><div data-v-61e5e8e8="" data-v-71b06603="" class="row"><div data-v-61e5e8e8=""><div data-v-61e5e8e8="" class="item"><a data-v-61e5e8e8="" href="/" class="item router-link-active"> 主页 </a>/ </div></div><div data-v-61e5e8e8=""><div data-v-61e5e8e8="" class="item"><a data-v-61e5e8e8="" href="/article" class="item router-link-active"> 文章 </a>/ </div></div><div data-v-61e5e8e8=""><div data-v-61e5e8e8=""> 使用Spring构建RESTful的Web服务 </div></div></div><h1 data-v-71b06603="">使用Spring构建RESTful的Web服务</h1><div data-v-71b06603="" class="info"><div data-v-71b06603="">李</div><div data-v-71b06603="">2019-04-10 17:33:06</div><div data-v-71b06603="">上海</div></div><div data-v-71b06603="" class="markdown-body"><h4>目标</h4>
+<p>构建一个可以接受http请求的API。</p>
+<!-- more -->
+<p>这个API看起来是这样的，访问<code>http://localhost:8080/greeting</code>，返回</p>
+<pre><code class="language-json">{"id":1,"content":"Hello, World!"}
+</code></pre>
+<p>或者带上参数<code>http://localhost:8080/greeting?name=User</code>，返回</p>
+<pre><code class="language-json">{"id":1,"content":"Hello, User!"}
+</code></pre>
+<h4>准备</h4>
+<ul>
+<li>Java8或更高。</li>
+<li>maven3.2或更高</li>
+<li>Spring boot 2.1.3</li>
+<li>编辑器或者IDE</li>
+</ul>
+<h4>操作</h4>
+<p><a href="https://github.com/spring-guides/gs-rest-service/archive/master.zip">下载</a>样例源码，或者使用git clone到本地：</p>
+<pre><code class="language-bash">git clone https://github.com/spring-guides/gs-rest-service.git
+</code></pre>
+<p>然后进入到<code>initial</code>文件夹下，之后的所有操作以该文件夹为工作目录。</p>
+<p><strong>创建资源类</strong></p>
+<p>新建<code>src/main/java/hello/Greeting.java</code>文件：</p>
+<pre><code class="language-java">package hello;
+
+public class Greeting {
+
+    private final long id;
+    private final String content;
+
+    public Greeting(long id, String content) {
+        this.id = id;
+        this.content = content;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+}
+</code></pre>
+<p><strong>创建控制类</strong></p>
+<p>新建<code>src/main/java/hello/GreetingController.java</code>文件：</p>
+<pre><code class="language-java">package hello;
+
+import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class GreetingController {
+
+    private static final String template = "Hello, %s!";
+    private final AtomicLong counter = new AtomicLong();
+
+    @RequestMapping("/greeting")
+    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
+        return new Greeting(counter.incrementAndGet(),
+                            String.format(template, name));
+    }
+}
+</code></pre>
+<p>控制类用于处理HTTP请求。</p>
+<ul>
+<li><code>@RestController</code>注释表明这是一个控制类。</li>
+<li><code>@RequestMapping("/greeting")</code>注释可以将请求到<code>/greeting</code>地址的HTTP请求映射到<code>greeting()</code>方法。
+<blockquote>
+<p><code>@RequestMapping</code>默认会映射所有HTTP方式，可以通过<code>@RequestMapping(method=GET)</code>指定具体的方式。</p>
+</blockquote>
+</li>
+<li><code>@RequestParam</code>注释用于将请求中的<code>name</code>字段与<code>greeting()</code>方法中的<code>name</code>参数绑定。</li>
+</ul>
+<p><strong>添加main方法</strong></p>
+<p>新建<code>src/main/java/hello/Application.java</code>文件：</p>
+<pre><code class="language-java">package hello;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Application {
+
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+}
+</code></pre>
+<p><code>@SpringBootApplication</code>注释相当于下列多个注释：</p>
+<ul>
+<li><code>@Configuration</code></li>
+<li><code>@EnableAutoConfiguration</code></li>
+<li><code>@EnableWebMvc</code></li>
+<li><code>@ComponentScan</code></li>
+</ul>
+<p><strong>运行</strong></p>
+<p>在工作目录下打开控制台窗口，运行：</p>
+<pre><code class="language-cmd">mvn spring-boot:run
+</code></pre>
+<p>之后访问<code>http://localhost:8080/greeting</code>即可看到API返回的数据，也可以在查询中带上参数<code>name</code>。</p>
+<p>若要停止应用，按<code>Ctrl</code>+<code>C</code>（在git bash中失效）。</p>
+<p><strong>打包</strong></p>
+<p>在工作目录下打开控制台窗口，运行：</p>
+<pre><code class="language-cmd">mvn package
+</code></pre>
+<p>可以将应用打包为jar包，保存在<code>target</code>目录下。</p>
+<p>以下命令可以查看jar包中都有什么：</p>
+<pre><code class="language-cmd">jar tvf target/gs-rest-service-0.1.0.jar
+</code></pre>
+<p>以下命令可以运行jar包：</p>
+<pre><code class="language-cmd">java -jar target/gs-rest-service-0.1.0.jar
+</code></pre>
+<p>同样，若要停止应用，按<code>Ctrl</code>+<code>C</code>。</p>
+<h4>使用IntelliJ IDEA</h4>
+<p>如果使用IntelliJ IDEA，它已经自带了maven和spring，可以直接在IDE界面中点击按钮运行或调试，并且可以通过图形界面将应用打包。</p>
+<h4>参考</h4>
+<p><a href="https://spring.io/guides/gs/rest-service/">Getting Started · Building a RESTful Web Service</a></p>
+<p><a href="https://docs.spring.io/spring-boot/docs/2.1.3.RELEASE/reference/html">Spring Boot Reference Guide</a></p>
+</div><a data-v-71b06603="" href="https://github.com/ReGetALife/solidays/blob/master/public/article/4.md" class="view-source"> 在 GitHub 上查看本页 </a></div><div data-v-3f9ea82b="" class="utterances"><div class="utterances">
+    <iframe class="utterances-frame" title="Comments" scrolling="no" src="https://utteranc.es/utterances.html?type=application%2Fjavascript&amp;src=https%3A%2F%2Futteranc.es%2Fclient.js&amp;repo=ReGetALife%2Fsolidays-comment&amp;issue-term=pathname&amp;theme=github-light&amp;crossorigin=anonymous&amp;async=async&amp;url=http%3A%2F%2Flocalhost%3A8000%2Farticle%2F4&amp;origin=http%3A%2F%2Flocalhost%3A8000&amp;pathname=article%2F4&amp;title=solidays&amp;description=&amp;og%3Atitle=&amp;session=" loading="lazy"></iframe>
+  </div></div></div></div><script src="/js/chunk-vendors.91ff9c0b.js"></script><script src="/js/app.dced548f.js"></script></body></html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="zh"><head><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>solidays</title><link href="/css/about.3eaa9a42.css" rel="prefetch"><link href="/css/chunk-2ae2f691.bf65547e.css" rel="prefetch"><link href="/css/chunk-425246c2.7e53ec29.css" rel="prefetch"><link href="/js/about.2b351796.js" rel="prefetch"><link href="/js/chunk-2ae2f691.6989063e.js" rel="prefetch"><link href="/js/chunk-425246c2.e5f65854.js" rel="prefetch"><link href="/css/app.f5894e10.css" rel="preload" as="style"><link href="/js/app.dced548f.js" rel="preload" as="script"><link href="/js/chunk-vendors.91ff9c0b.js" rel="preload" as="script"><link href="/css/app.f5894e10.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="/css/chunk-2ae2f691.bf65547e.css"><script charset="utf-8" src="/js/chunk-2ae2f691.6989063e.js"></script></head><body><noscript><strong>We're sorry but solidays doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app" data-server-rendered="true"><div data-v-3f9ea82b="" class="container"><div data-v-71b06603="" id="article" class="main"><div data-v-61e5e8e8="" data-v-71b06603="" class="row"><div data-v-61e5e8e8=""><div data-v-61e5e8e8="" class="item"><a data-v-61e5e8e8="" href="/" class="item router-link-active"> 主页 </a>/ </div></div><div data-v-61e5e8e8=""><div data-v-61e5e8e8="" class="item"><a data-v-61e5e8e8="" href="/article" class="item router-link-active"> 文章 </a>/ </div></div><div data-v-61e5e8e8=""><div data-v-61e5e8e8=""> 亲历的一次 Mongodb 攻击 </div></div></div><h1 data-v-71b06603="">亲历的一次 Mongodb 攻击</h1><div data-v-71b06603="" class="info"><div data-v-71b06603="">李</div><div data-v-71b06603="">2019-06-24 17:09:44</div><div data-v-71b06603="">上海</div></div><div data-v-71b06603="" class="markdown-body"><p>项目需要，在腾讯云上部署了 Yapi 来管理接口。今天同学突然跟我说 Yapi 上不去了。检查一下发现，账号都被删了。再检查一下发现，整个数据库都被删了，僵硬。</p>
+<!-- more -->
+<p>于是打开 Mongodb 日志查看操作记录。</p>
+<p>默认在 <code>/var/log/mongodb/mongod.log</code> 位置，然后</p>
+<pre><code class="language-bash">cat mongodb.log |grep dropDatabase
+</code></pre>
+<p>然后发现有许多条删库的记录。</p>
+<pre><code>2019-06-24T10:46:23.117+0800 I COMMAND  [conn116] dropDatabase account-db - starting
+2019-06-24T10:46:23.117+0800 I COMMAND  [conn116] dropDatabase account-db - dropping 0 collections
+2019-06-24T10:46:23.244+0800 I COMMAND  [conn116] dropDatabase account-db - finished
+</code></pre>
+<p>时间在十点多,那时我还在睡觉😁</p>
+<p>锁定这个连接 <code>[conn116]</code> 然后</p>
+<pre><code class="language-bash">cat mongodb.log |grep "[conn116]"
+</code></pre>
+<p>结果如下：</p>
+<pre><code class="language-log">2019-06-24T10:46:23.117+0800 I COMMAND  [conn116] dropDatabase account-db - starting
+2019-06-24T10:46:23.117+0800 I COMMAND  [conn116] dropDatabase account-db - dropping 0 collections
+2019-06-24T10:46:23.244+0800 I COMMAND  [conn116] dropDatabase account-db - finished
+2019-06-24T10:46:23.244+0800 I COMMAND  [conn116] command account-db appName: "robo3t" command: dropDatabase { dropDatabase: 1, writeConcern: { w: 0, wtimeout: 0 }, $db: "account-db" } numYields:0 reslen:62 locks:{ Global: { acquireCount: { r: 2, w: 1, W: 1 } }, Database: { acquireCount: { W: 1 } } } storage:{} protocol:op_msg 127ms
+2019-06-24T10:46:26.281+0800 I COMMAND  [conn116] dropDatabase analysis-db - starting
+2019-06-24T10:46:26.281+0800 I COMMAND  [conn116] dropDatabase analysis-db - dropping 0 collections
+2019-06-24T10:46:26.294+0800 I COMMAND  [conn116] dropDatabase analysis-db - finished
+2019-06-24T10:46:28.813+0800 I COMMAND  [conn116] dropDatabase movie - starting
+2019-06-24T10:46:28.813+0800 I COMMAND  [conn116] dropDatabase movie - dropping 0 collections
+2019-06-24T10:46:28.832+0800 I COMMAND  [conn116] dropDatabase movie - finished
+2019-06-24T10:46:31.369+0800 I COMMAND  [conn116] dropDatabase config - starting
+2019-06-24T10:46:31.369+0800 I COMMAND  [conn116] dropDatabase config - dropping 0 collections
+2019-06-24T10:46:31.382+0800 I COMMAND  [conn116] dropDatabase config - finished
+2019-06-24T10:46:34.208+0800 I COMMAND  [conn116] dropDatabase yapi - starting
+2019-06-24T10:46:34.208+0800 I COMMAND  [conn116] dropDatabase yapi - dropping 0 collections
+2019-06-24T10:46:34.544+0800 I COMMAND  [conn116] dropDatabase yapi - finished
+2019-06-24T10:46:34.544+0800 I COMMAND  [conn116] command yapi appName: "robo3t" command: dropDatabase { dropDatabase: 1, writeConcern: { w: 0, wtimeout: 0 }, $db: "yapi" } numYields:0 reslen:56 locks:{ Global: { acquireCount: { r: 2, w: 1, W: 1 } }, Database: { acquireCount: { W: 1 } } } storage:{} protocol:op_msg 335ms
+2019-06-24T10:46:42.841+0800 I COMMAND  [conn116] dropDatabase local - starting
+2019-06-24T10:46:42.841+0800 I COMMAND  [conn116] dropDatabase local - dropping 0 collections
+2019-06-24T10:46:42.866+0800 I COMMAND  [conn116] dropDatabase local - finished
+2019-06-24T10:47:45.544+0800 I STORAGE  [conn116] createCollection: admin.RECOVERY with generated UUID: 764e8a75-d5f5-44da-aa01-89035f820b7d
+2019-06-24T10:48:35.495+0800 I NETWORK  [conn116] end connection 207.148.13.163:40264 (8 connections now open)
+</code></pre>
+<p>一顿操作行云流水，肯定是机器人操作，删完还不忘创建一个 <code>admin.RECOVERY</code> ，留下一个联系恢复的邮箱。</p>
+<pre><code class="language-json">{
+  "_id": {
+    "$oid": "5d1039f3a6d39755438bc654"
+  },
+  "recovery": "email whitx@gmx.com"
+}
+</code></pre>
+<p>查了一下这个地址，是美国的一台 vultr 的 vps ，很难找到是谁。而且仔细看一下日志，美国加拿大的很多陌生 IP 都造访过我的 Mongodb，真实流泪。</p>
+<p>于是我就给mongodb加上了密码，换了端口，并且养成了经常备份的好习惯。</p>
+</div><a data-v-71b06603="" href="https://github.com/ReGetALife/solidays/blob/master/public/article/3.md" class="view-source"> 在 GitHub 上查看本页 </a></div><div data-v-3f9ea82b="" class="utterances"><div class="utterances">
+    <iframe class="utterances-frame" title="Comments" scrolling="no" src="https://utteranc.es/utterances.html?type=application%2Fjavascript&amp;src=https%3A%2F%2Futteranc.es%2Fclient.js&amp;repo=ReGetALife%2Fsolidays-comment&amp;issue-term=pathname&amp;theme=github-light&amp;crossorigin=anonymous&amp;async=async&amp;url=http%3A%2F%2Flocalhost%3A8000%2Farticle%2F3&amp;origin=http%3A%2F%2Flocalhost%3A8000&amp;pathname=article%2F3&amp;title=solidays&amp;description=&amp;og%3Atitle=&amp;session=" loading="lazy"></iframe>
+  </div></div></div></div><script src="/js/chunk-vendors.91ff9c0b.js"></script><script src="/js/app.dced548f.js"></script></body></html>

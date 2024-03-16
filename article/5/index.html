@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="zh"><head><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>solidays</title><link href="/css/about.3eaa9a42.css" rel="prefetch"><link href="/css/chunk-2ae2f691.bf65547e.css" rel="prefetch"><link href="/css/chunk-425246c2.7e53ec29.css" rel="prefetch"><link href="/js/about.2b351796.js" rel="prefetch"><link href="/js/chunk-2ae2f691.6989063e.js" rel="prefetch"><link href="/js/chunk-425246c2.e5f65854.js" rel="prefetch"><link href="/css/app.f5894e10.css" rel="preload" as="style"><link href="/js/app.dced548f.js" rel="preload" as="script"><link href="/js/chunk-vendors.91ff9c0b.js" rel="preload" as="script"><link href="/css/app.f5894e10.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="/css/chunk-2ae2f691.bf65547e.css"><script charset="utf-8" src="/js/chunk-2ae2f691.6989063e.js"></script></head><body><noscript><strong>We're sorry but solidays doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app" data-server-rendered="true"><div data-v-3f9ea82b="" class="container"><div data-v-71b06603="" id="article" class="main"><div data-v-61e5e8e8="" data-v-71b06603="" class="row"><div data-v-61e5e8e8=""><div data-v-61e5e8e8="" class="item"><a data-v-61e5e8e8="" href="/" class="item router-link-active"> 主页 </a>/ </div></div><div data-v-61e5e8e8=""><div data-v-61e5e8e8="" class="item"><a data-v-61e5e8e8="" href="/article" class="item router-link-active"> 文章 </a>/ </div></div><div data-v-61e5e8e8=""><div data-v-61e5e8e8=""> Win10平台从源码构建支持GPU的tensorflow </div></div></div><h1 data-v-71b06603="">Win10平台从源码构建支持GPU的tensorflow</h1><div data-v-71b06603="" class="info"><div data-v-71b06603="">李</div><div data-v-71b06603="">2019-05-16 14:23:31</div><div data-v-71b06603="">上海</div></div><div data-v-71b06603="" class="markdown-body"><p>由于预编译的TF版本不支持 Compute Capability 为 3.0 的GPU，至少需要是 3.5，于是从源码开始构建。</p>
+<!--more-->
+<h4>失败的尝试</h4>
+<ul>
+<li>anaconda python 3.7</li>
+<li>msys2-x86_64-20180531</li>
+<li>bazel-0.25.2-windows-x86_64, bazel-0.24.1-windows-x86_64 和 bazel-0.15.0-windows-x86_64</li>
+<li>Microsoft Visual C++ 2015 Redistributable 更新 3</li>
+<li>Microsoft 生成工具 2015 更新 3</li>
+<li>GPU: NVIDIA Quadro K1100M(Compute Capability: 3.0)</li>
+<li>NVIDIA GPU Driver 416.78</li>
+<li>cuda 10.0</li>
+<li>cudnn 7.5</li>
+<li>tensorflow-1.13 和 tensorflow-1.12</li>
+</ul>
+<p>遵循<a href="https://www.tensorflow.org/install">官网</a>的步骤，尝试了上述的组合，均出现了诸如找不到包的致命问题。</p>
+<p>放弃。</p>
+<h3>成功的尝试</h3>
+<ul>
+<li>python 3.6</li>
+<li>msys2-x86_64-20180531</li>
+<li>bazel-0.15.0-windows-x86_64</li>
+<li>Microsoft Visual C++ 2015 Redistributable 更新 3</li>
+<li>Microsoft 生成工具 2015 更新 3</li>
+<li>GPU: NVIDIA Quadro K1100M(Compute Capability: 3.0)</li>
+<li>NVIDIA GPU Driver 416.78</li>
+<li>cuda 9.2</li>
+<li>cudnn-9.2-windows10-x64-v7.5.1.10</li>
+<li>tensorflow-1.12</li>
+</ul>
+<p>较新的版本没有成功，于是稍微回退一下。参考官网上的经过测试的编译配置，重新安装了原生的 python 3.6，使用 TF 1.12。<br>
+依旧按照官网的步骤。</p>
+<p>编译时间比较久，一个多小时，好歹成功了，但是 Warning 很多:)</p>
+<pre><code class="language-cmd">INFO: Elapsed time: 5194.237s, Critical Path: 784.67s
+INFO: 4504 processes: 4504 local.
+INFO: Build completed successfully, 6049 total actions
+</code></pre>
+<p>由于 Bazel 的版本比较老，必须借助 MSYS Shell 来编译软件包。参照官网步骤，停用 MSYS 的路径转换，并设置了必要的 PATH 后，在 MSYS Shell 中切换到项目根目录并输入：</p>
+<pre><code class="language-bash">$ bazel-bin/tensorflow/tools/pip_package/build_pip_package /d/tmp/tensorflow_pkg
+2019年05月17日 9:51:12 : === Preparing sources in dir: /tmp/tmp.fP9a10VeyS
+Unzipping simple_console_for_windows.zip to create runfiles tree...
+Unzip finished.
+/d/Desktop/tensorflow-1.12.2 /d/Desktop/tensorflow-1.12.2
+/d/Desktop/tensorflow-1.12.2
+2019年05月17日 10:04:44 : === Building wheel
+2019年05月17日 10:06:50 : === Output wheel file is in: /d/tmp/tensorflow_pkg
+</code></pre>
+<p>软件包就在 <code>D:\tmp\tensorflow_pkg</code> 目录下了。<br>
+安装即可。</p>
+</div><a data-v-71b06603="" href="https://github.com/ReGetALife/solidays/blob/master/public/article/5.md" class="view-source"> 在 GitHub 上查看本页 </a></div><div data-v-3f9ea82b="" class="utterances"><div class="utterances">
+    <iframe class="utterances-frame" title="Comments" scrolling="no" src="https://utteranc.es/utterances.html?type=application%2Fjavascript&amp;src=https%3A%2F%2Futteranc.es%2Fclient.js&amp;repo=ReGetALife%2Fsolidays-comment&amp;issue-term=pathname&amp;theme=github-light&amp;crossorigin=anonymous&amp;async=async&amp;url=http%3A%2F%2Flocalhost%3A8000%2Farticle%2F5&amp;origin=http%3A%2F%2Flocalhost%3A8000&amp;pathname=article%2F5&amp;title=solidays&amp;description=&amp;og%3Atitle=&amp;session=" loading="lazy"></iframe>
+  </div></div></div></div><script src="/js/chunk-vendors.91ff9c0b.js"></script><script src="/js/app.dced548f.js"></script></body></html>

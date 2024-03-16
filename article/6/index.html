@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="zh"><head><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>solidays</title><link href="/css/about.3eaa9a42.css" rel="prefetch"><link href="/css/chunk-2ae2f691.bf65547e.css" rel="prefetch"><link href="/css/chunk-425246c2.7e53ec29.css" rel="prefetch"><link href="/js/about.2b351796.js" rel="prefetch"><link href="/js/chunk-2ae2f691.6989063e.js" rel="prefetch"><link href="/js/chunk-425246c2.e5f65854.js" rel="prefetch"><link href="/css/app.f5894e10.css" rel="preload" as="style"><link href="/js/app.dced548f.js" rel="preload" as="script"><link href="/js/chunk-vendors.91ff9c0b.js" rel="preload" as="script"><link href="/css/app.f5894e10.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="/css/chunk-2ae2f691.bf65547e.css"><script charset="utf-8" src="/js/chunk-2ae2f691.6989063e.js"></script></head><body><noscript><strong>We're sorry but solidays doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app" data-server-rendered="true"><div data-v-3f9ea82b="" class="container"><div data-v-71b06603="" id="article" class="main"><div data-v-61e5e8e8="" data-v-71b06603="" class="row"><div data-v-61e5e8e8=""><div data-v-61e5e8e8="" class="item"><a data-v-61e5e8e8="" href="/" class="item router-link-active"> 主页 </a>/ </div></div><div data-v-61e5e8e8=""><div data-v-61e5e8e8="" class="item"><a data-v-61e5e8e8="" href="/article" class="item router-link-active"> 文章 </a>/ </div></div><div data-v-61e5e8e8=""><div data-v-61e5e8e8=""> 如何在跳一跳中赢你的朋友 </div></div></div><h1 data-v-71b06603="">如何在跳一跳中赢你的朋友</h1><div data-v-71b06603="" class="info"><div data-v-71b06603="">李</div><div data-v-71b06603="">2018-01-16 22:37:31</div><div data-v-71b06603="">上海</div></div><div data-v-71b06603="" class="markdown-body"><p>近来微信推出的小程序跳一跳着实在朋友圈火了一把，然而作为手残党的我只能望着好友排行榜上四五百的成绩黯然神伤。偶然发现了GitHub上的跳一跳开挂项目，试了一下效果甚好。</p>
+<!--more-->
+<blockquote>
+<p>2017 年 12 月 28 日下午，微信发布了 6.6.1 版本，加入了「小游戏」功能，并提供了官方 DEMO「跳一跳」。这是一个 2.5D 插画风格的益智游戏，玩家可以通过按压屏幕时间的长短来控制这个「小人」跳跃的距离。<strong>如果能利用图像识别精确测量出起始和目标点之间测距离，就可以估计按压的时间来精确跳跃。</strong></p>
+</blockquote>
+<p>GitHub上的跳一跳辅助项目在<a href="https://github.com/wangshub/wechat_jump_game">这里</a>。（温馨提示：腾讯的程序员显然也在持续关注这个项目，因此被官方识别出开挂而失去分数的可能性还是存在的。）</p>
+<p>下面介绍如何在利用该项目称霸好友榜。我是在win10上操纵安卓设备，其他设备的请自行<a href="https://github.com/wangshub/wechat_jump_game/wiki">查阅文档</a>。</p>
+<h4>搭建python环境</h4>
+<p>自行百度安装即可。我安装的是python2.7.13。安装完成后还需要添加<strong>环境变量</strong> ：在文件资源管理器-&gt;此电脑（右键）-&gt;属性-&gt;高级系统设置-&gt;环境变量-&gt;系统变量，找到<code>path</code>变量，添加python的安装路径，例如<code>C:\Python27</code> 。之后打开<code>cmd</code>输入python显示出版本号说明已经成功配置。</p>
+<h4>搭建ADB环境</h4>
+<p>直接在<a href="https://adb.clockworkmod.com/">这里</a>下载安装即可。安装完成后同样要添加<strong>环境变量</strong>，方法同上（安装路径类似<code>C:\Program Files (x86)\ClockworkMod\Universal Adb Driver</code>）。之后打开<code>cmd</code>输入adb显示出大量文字说明已经成功配置。</p>
+<h4>下载APP</h4>
+<p>为了尽量简单，我们选择使用app进行一键操作。在<a href="https://github.com/wangshub/wechat_jump_game/releases">这里</a>下载最新的对应的release版本。比如我下载了<code>STOP_jump_win.rar</code> 。然后解压。在解压的目录里新建<code>requirements.txt</code>文件，内容与<a href="https://github.com/wangshub/wechat_jump_game/blob/master/requirements.txt">此处</a>一致。</p>
+<h4>安装依赖文件</h4>
+<p>在解压目录里面按住shift+鼠标右键打开命令行窗口或者powershell，运行以下命令：</p>
+<pre><code class="language-shell">pip install -r requirements.txt
+</code></pre>
+<p>若不能识别pip试试以下语句</p>
+<pre><code class="language-shell">python -m pip install -r requirements.txt
+</code></pre>
+<p>还不行的话以管理员身份打开命令行窗口或者powershell再尝试。</p>
+<h4>连接手机</h4>
+<p>打开手机的USB调试，以内置光盘的方式连接电脑。<code>Windows</code>键加<code>R</code>键运行<code>cmd</code>，打开命令行窗口，执行<code>adb devices</code>命令。如果看到有设备连接表示已成功。这时候设备的状态可能还是下面这样：</p>
+<pre><code>List of devices attached
+XXXXXXXX               unauthorized
+</code></pre>
+<p>只要在手机端弹出的窗口中授权即可，注意勾选一直授权。这时候再次执行<code>adb devices</code>命令，变成如下：</p>
+<pre><code>List of devices attached
+XXXXXXXX               device
+</code></pre>
+<p>进行usb调试的方法，不同手机不尽相同，如果ADB没有发现你的设备，请自行百度原因。</p>
+<h4>运行程序</h4>
+<p>在解压目录中运行.exe文件，例如<code>stop_jump1_1_2.exe</code>。如果提示请安装ADB并配置环境变量（大概由于adb版本不兼容），尝试将解压目录中的<code>adb.exe</code>文件删除（任务管理器中结束它的进程再删除），并找到ADB安装目录中的<code>adb.exe</code>复制进解压目录。重新运行即可。如果看到如下内容，大功告成。</p>
+<img src="/images/stop_jump.PNG" width="500px">
+<h2>最后贴上一张效果图😆，and装逼请适度。</h2>
+<img src="/images/S80116-164340.jpg" width="200px"></div><a data-v-71b06603="" href="https://github.com/ReGetALife/solidays/blob/master/public/article/6.md" class="view-source"> 在 GitHub 上查看本页 </a></div><div data-v-3f9ea82b="" class="utterances"><div class="utterances">
+    <iframe class="utterances-frame" title="Comments" scrolling="no" src="https://utteranc.es/utterances.html?type=application%2Fjavascript&amp;src=https%3A%2F%2Futteranc.es%2Fclient.js&amp;repo=ReGetALife%2Fsolidays-comment&amp;issue-term=pathname&amp;theme=github-light&amp;crossorigin=anonymous&amp;async=async&amp;url=http%3A%2F%2Flocalhost%3A8000%2Farticle%2F6&amp;origin=http%3A%2F%2Flocalhost%3A8000&amp;pathname=article%2F6&amp;title=solidays&amp;description=&amp;og%3Atitle=&amp;session=" loading="lazy"></iframe>
+  </div></div></div></div><script src="/js/chunk-vendors.91ff9c0b.js"></script><script src="/js/app.dced548f.js"></script></body></html>

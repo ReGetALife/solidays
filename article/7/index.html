@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="zh"><head><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>solidays</title><link href="/css/about.3eaa9a42.css" rel="prefetch"><link href="/css/chunk-2ae2f691.bf65547e.css" rel="prefetch"><link href="/css/chunk-425246c2.7e53ec29.css" rel="prefetch"><link href="/js/about.2b351796.js" rel="prefetch"><link href="/js/chunk-2ae2f691.6989063e.js" rel="prefetch"><link href="/js/chunk-425246c2.e5f65854.js" rel="prefetch"><link href="/css/app.f5894e10.css" rel="preload" as="style"><link href="/js/app.dced548f.js" rel="preload" as="script"><link href="/js/chunk-vendors.91ff9c0b.js" rel="preload" as="script"><link href="/css/app.f5894e10.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="/css/chunk-2ae2f691.bf65547e.css"><script charset="utf-8" src="/js/chunk-2ae2f691.6989063e.js"></script></head><body><noscript><strong>We're sorry but solidays doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app" data-server-rendered="true"><div data-v-3f9ea82b="" class="container"><div data-v-71b06603="" id="article" class="main"><div data-v-61e5e8e8="" data-v-71b06603="" class="row"><div data-v-61e5e8e8=""><div data-v-61e5e8e8="" class="item"><a data-v-61e5e8e8="" href="/" class="item router-link-active"> 主页 </a>/ </div></div><div data-v-61e5e8e8=""><div data-v-61e5e8e8="" class="item"><a data-v-61e5e8e8="" href="/article" class="item router-link-active"> 文章 </a>/ </div></div><div data-v-61e5e8e8=""><div data-v-61e5e8e8=""> Qt Creater介绍 </div></div></div><h1 data-v-71b06603="">Qt Creater介绍</h1><div data-v-71b06603="" class="info"><div data-v-71b06603="">李</div><div data-v-71b06603="">2018-05-11 23:41:17</div><div data-v-71b06603="">上海</div></div><div data-v-71b06603="" class="markdown-body"><h3>背景</h3>
+<p>最近操作系统项目要求做一个电梯调度程序，周围同学有的使用Java+Swing，有的使用Js，而我打算使用C++。第一次做有GUI的软件，上网搜索一番后发现了Qt这个工具，评价颇高。</p>
+<!--more-->
+<h3>下载安装</h3>
+<p>幸运的找到了<a href="http://www.qter.org">Qt开源社区</a>，上面有很多关于这个工具的资源。下载安装以及初步的学习推荐<a href="http://www.qter.org/portal.php?mod=view&amp;aid=26">此教程</a>。值得注意的是，直接在官网上下载安装包是需要注册的，而使用<a href="https://download.qt.io/official_releases/qt/5.8/5.8.0/">资源下载页面</a>的链接可以绕过注册直接下载，链接如下：</p>
+<p><a href="https://download.qt.io/official_releases/qt/5.8/5.8.0/qt-opensource-windows-x86-android-5.8.0.exe">https://download.qt.io/official_releases/qt/5.8/5.8.0/qt-opensource-windows-x86-android-5.8.0.exe</a></p>
+<p>文件很大，推荐使用迅雷下载，速度很快。</p>
+<p>或者，qt-opensource-windows-x86-android-5.8.0.exe的百度网盘（密码：vr6h）：</p>
+<p><a href="https://pan.baidu.com/s/1pvm38_Mk9CnE3VQtBRqeLw">https://pan.baidu.com/s/1pvm38_Mk9CnE3VQtBRqeLw</a></p>
+<p>安装后界面如banner所示。共有六个模式，其中的设计模式可以方便的对UI进行可视化设计，简单了解即可上手。</p>
+<h3>通信机制</h3>
+<p>Qt有一套自己的通信机制，涉及到三个关键字：字：<code>signal</code>，<code>slot</code>，<code>emit</code>。</p>
+<ul>
+<li>
+<p><strong>signal</strong>（信号）</p>
+<p>被声明为<code>signal</code>的函数用来发射信号，信号可以被槽函数（被声明为<code>slot</code>的函数）接收并触发槽函数。</p>
+</li>
+<li>
+<p><strong>slot</strong>（槽）</p>
+<p>被声明为<code>slot</code>的函数可以接受信号函数的信号，值得注意的是，信号和槽之间的对应关系一对多或者多对一都可以，信号没有槽接收也是允许的。信号和槽之间的联系通过<code>connect</code>方法实现，如：</p>
+<pre><code class="language-c++">connect(pointer1, SIGNAL(signalFun(int)), pointer2, SLOT(slotFun(int)));
+</code></pre>
+<p>上述语句将<code>pointer1</code>所指向的类中的成员信号函数<code>signalFun</code>与<code>pointer2</code>所指向的类中的成员槽函数<code>slotFun</code>相关联。槽函数除了可以与信号关联，与普通的函数没有什么区别。<strong>注意</strong>只有继承于Qt中的定义了信号的类或子类的类的成员函数才能与信号关联，也就是说非类的成员函数是显然不能与信号关联的。</p>
+</li>
+<li>
+<p><strong>emit</strong>（释放信号）</p>
+<p>用于释放一个信号。如：</p>
+<pre><code class="language-c++">emit signalFun(a);//a is an int
+</code></pre>
+<p>上述语句释放了一个<code>signalFun</code>信号，并且携带了参数a，与之关联的槽函数可以收到信号和参数并被触发。当然信号函数也可以不带任何参数。</p>
+</li>
+</ul>
+<p>这套机制有许多优点，它可以在不同的类甚至不同的线程之间进行使用，异常灵活。这对于多线程之间的通讯非常有用。并且它是类型安全的。</p>
+</div><a data-v-71b06603="" href="https://github.com/ReGetALife/solidays/blob/master/public/article/7.md" class="view-source"> 在 GitHub 上查看本页 </a></div><div data-v-3f9ea82b="" class="utterances"><div class="utterances">
+    <iframe class="utterances-frame" title="Comments" scrolling="no" src="https://utteranc.es/utterances.html?type=application%2Fjavascript&amp;src=https%3A%2F%2Futteranc.es%2Fclient.js&amp;repo=ReGetALife%2Fsolidays-comment&amp;issue-term=pathname&amp;theme=github-light&amp;crossorigin=anonymous&amp;async=async&amp;url=http%3A%2F%2Flocalhost%3A8000%2Farticle%2F7&amp;origin=http%3A%2F%2Flocalhost%3A8000&amp;pathname=article%2F7&amp;title=solidays&amp;description=&amp;og%3Atitle=&amp;session=" loading="lazy"></iframe>
+  </div></div></div></div><script src="/js/chunk-vendors.91ff9c0b.js"></script><script src="/js/app.dced548f.js"></script></body></html>

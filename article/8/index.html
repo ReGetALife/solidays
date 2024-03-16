@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="zh"><head><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      color-scheme: light;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>solidays</title><link href="/css/about.3eaa9a42.css" rel="prefetch"><link href="/css/chunk-2ae2f691.bf65547e.css" rel="prefetch"><link href="/css/chunk-425246c2.7e53ec29.css" rel="prefetch"><link href="/js/about.2b351796.js" rel="prefetch"><link href="/js/chunk-2ae2f691.6989063e.js" rel="prefetch"><link href="/js/chunk-425246c2.e5f65854.js" rel="prefetch"><link href="/css/app.f5894e10.css" rel="preload" as="style"><link href="/js/app.dced548f.js" rel="preload" as="script"><link href="/js/chunk-vendors.91ff9c0b.js" rel="preload" as="script"><link href="/css/app.f5894e10.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="/css/chunk-2ae2f691.bf65547e.css"><script charset="utf-8" src="/js/chunk-2ae2f691.6989063e.js"></script></head><body><noscript><strong>We're sorry but solidays doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app" data-server-rendered="true"><div data-v-3f9ea82b="" class="container"><div data-v-71b06603="" id="article" class="main"><div data-v-61e5e8e8="" data-v-71b06603="" class="row"><div data-v-61e5e8e8=""><div data-v-61e5e8e8="" class="item"><a data-v-61e5e8e8="" href="/" class="item router-link-active"> 主页 </a>/ </div></div><div data-v-61e5e8e8=""><div data-v-61e5e8e8="" class="item"><a data-v-61e5e8e8="" href="/article" class="item router-link-active"> 文章 </a>/ </div></div><div data-v-61e5e8e8=""><div data-v-61e5e8e8=""> 解决HEXO Git部署时报错：Permission denied (publickey) </div></div></div><h1 data-v-71b06603="">解决HEXO Git部署时报错：Permission denied (publickey)</h1><div data-v-71b06603="" class="info"><div data-v-71b06603="">李</div><div data-v-71b06603="">2019-04-02 19:45:12</div><div data-v-71b06603="">上海</div></div><div data-v-71b06603="" class="markdown-body"><p>平台：Win10</p>
+<!--more-->
+<p>很久没有更新文章了，断更期间还重装了系统:D</p>
+<p>于是乎今天用HEXO部署文章时报错了：</p>
+<pre><code class="language-console">Permission denied (publickey)
+</code></pre>
+<p>错误原因就是字面意思，SSH Key没有配置好。</p>
+<p>首先在Git Bash中检查是否有SSH Key：</p>
+<pre><code class="language-console">$ ssh -T git@github.com
+git@github.com: Permission denied (publickey).
+</code></pre>
+<p>嗯，没有。</p>
+<p>那就新建一个吧：</p>
+<pre><code class="language-console">$ ssh-keygen -t rsa -C "example@qq.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/xiaoming/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /c/Users/xiaoming/.ssh/id_rsa.
+Your public key has been saved in /c/Users/xiaoming/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:pdmmm0dTm/sssss5xoPmY82FCHznLngEbC5iEtpKkba example@qq.com
+The key's randomart image is:
++---[RSA 2048]----+
+|o.. . o.o        |
+|o+.. . + .       |
+|ooo       o +    |
+|Eo       B = *   |
+|.       S = = o  |
+|       o # * o   |
+|        O / *    |
+|       . * = .   |
+|                 |
++----[SHA256]-----+
+</code></pre>
+<p>执行过程中要求输入口令，直接回车就好，无伤大雅。然后登录GitHub在账户的设置中找到<code>SSH and GPG keys</code>，点击<code>New SSH Key</code>新建SSH Key，将<code>c/Users/xiaoming/.ssh/id_rsa.pub</code>文件内的公钥粘贴进去即可。</p>
+<p>再次检查：</p>
+<pre><code class="language-console">$ ssh -T git@github.com
+Warning: Permanently added the RSA host key for IP address '13.250.177.223' to the list of known hosts.
+Hi Xiaoming! You've successfully authenticated, but GitHub does not provide shell access.
+</code></pre>
+<p>OK，再次部署就成功了。</p>
+</div><a data-v-71b06603="" href="https://github.com/ReGetALife/solidays/blob/master/public/article/8.md" class="view-source"> 在 GitHub 上查看本页 </a></div><div data-v-3f9ea82b="" class="utterances"><div class="utterances">
+    <iframe class="utterances-frame" title="Comments" scrolling="no" src="https://utteranc.es/utterances.html?type=application%2Fjavascript&amp;src=https%3A%2F%2Futteranc.es%2Fclient.js&amp;repo=ReGetALife%2Fsolidays-comment&amp;issue-term=pathname&amp;theme=github-light&amp;crossorigin=anonymous&amp;async=async&amp;url=http%3A%2F%2Flocalhost%3A8000%2Farticle%2F8&amp;origin=http%3A%2F%2Flocalhost%3A8000&amp;pathname=article%2F8&amp;title=solidays&amp;description=&amp;og%3Atitle=&amp;session=" loading="lazy"></iframe>
+  </div></div></div></div><script src="/js/chunk-vendors.91ff9c0b.js"></script><script src="/js/app.dced548f.js"></script></body></html>
